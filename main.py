@@ -107,7 +107,7 @@ def main():
             )
         
         logger.info("\n" + "="*80)
-        logger.info("✅ PROCESO COMPLETADO EXITOSAMENTE")
+        logger.info(" PROCESO COMPLETADO EXITOSAMENTE")
         logger.info("="*80)
         logger.info("\nArchivos generados:")
         logger.info("  - energy_forecasting.log")
@@ -117,7 +117,7 @@ def main():
         logger.info("  - dual_targets_*.png (si predict_both=True)")
         
     except Exception as e:
-        logger.error(f"❌ Error en el proceso: {e}", exc_info=True)
+        logger.error(f" Error en el proceso: {e}", exc_info=True)
         raise
 
 if __name__ == "__main__":

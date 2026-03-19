@@ -30,7 +30,7 @@ class MultiTargetForecaster:
         self.training_data = {}
         self.test_data = {}
         
-        logger.info("✓ MultiTargetForecaster inicializado")
+        logger.info(" MultiTargetForecaster inicializado")
         logger.info(f"  Archivo: {filepath}")
         logger.info(f"  Secuencia temporal: {sequence_length}")
         logger.info(f"  Predicción multitarget: {predict_both}")
@@ -87,7 +87,7 @@ class MultiTargetForecaster:
             'y': y_test
         }
         
-        logger.info("✓ Preparación de datos completada")
+        logger.info(" Preparación de datos completada")
         
         return X_train, X_test, y_train, y_test, output_dim
     
@@ -123,7 +123,7 @@ class MultiTargetForecaster:
             patience=15
         )
         
-        logger.info("✓ Modelo entrenado exitosamente")
+        logger.info(" Modelo entrenado exitosamente")
     
     def evaluate_model(self):
         """Evalúa el modelo en datos de prueba"""
@@ -143,9 +143,7 @@ class MultiTargetForecaster:
         # Evaluar
         if self.predict_both:
             # Separar predicciones para Y1 y Y2
-            print("\n" + "🔥 "*35)
-            print("EVALUACIÓN - Y1 (HEATING LOAD)")
-            print("🔥 "*35)
+            print("\nEVALUACIÓN - Y1 (HEATING LOAD)")
             
             metrics_y1_train = Evaluator.display_metrics(
                 y_train[:, 0], y_train_pred[:, 0],
@@ -156,9 +154,7 @@ class MultiTargetForecaster:
                 "Prueba", "- Y1 Heating Load"
             )
             
-            print("\n" + "❄️ "*35)
-            print("EVALUACIÓN - Y2 (COOLING LOAD)")
-            print("❄️ "*35)
+            print("\nEVALUACIÓN - Y2 (COOLING LOAD)")
             
             metrics_y2_train = Evaluator.display_metrics(
                 y_train[:, 1], y_train_pred[:, 1],
@@ -189,9 +185,7 @@ class MultiTargetForecaster:
     
     def run_complete_pipeline(self, lstm_units=64, epochs=100, batch_size=16):
         """Ejecuta el pipeline completo"""
-        print("\n" + "🚀 "*35)
-        print("PRONÓSTICO LSTM - ENERGY EFFICIENCY DATASET")
-        print("🚀 "*35)
+        print("\nPRONÓSTICO LSTM - ENERGY EFFICIENCY DATASET")
         print(f"\nDataset: Energy Efficiency (768 muestras, 8 características)")
         print(f"Variables objetivo: Y1 (Heating Load), Y2 (Cooling Load)")
         print(f"Modelo: LSTM multitarget con regularización")
@@ -206,7 +200,7 @@ class MultiTargetForecaster:
         metrics, y_train_pred, y_test_pred = self.evaluate_model()
         
         logger.info("\n" + "="*70)
-        logger.info("✓ PIPELINE COMPLETADO EXITOSAMENTE")
+        logger.info(" PIPELINE COMPLETADO EXITOSAMENTE")
         logger.info("="*70)
         
         return metrics, y_train_pred, y_test_pred

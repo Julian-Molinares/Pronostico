@@ -14,7 +14,7 @@ class LSTMModel:
     """
     
     def __init__(self, input_shape, output_dim=1, lstm_units=50, 
-                 dropout_rate=0.2, learning_rate=0.001):
+                dropout_rate=0.2, learning_rate=0.001):
         """
         Inicializa el modelo LSTM
         
@@ -45,12 +45,12 @@ class LSTMModel:
         """Construye la arquitectura del modelo LSTM"""
         self.model = Sequential([
             LSTM(self.lstm_units, activation='relu', 
-                 input_shape=self.input_shape, return_sequences=True,
-                 name='lstm_1'),
+                input_shape=self.input_shape, return_sequences=True,
+                name='lstm_1'),
             Dropout(self.dropout_rate),
             
             LSTM(self.lstm_units, activation='relu', 
-                 return_sequences=False, name='lstm_2'),
+                return_sequences=False, name='lstm_2'),
             Dropout(self.dropout_rate),
             
             Dense(25, activation='relu', name='dense_1'),
@@ -78,7 +78,7 @@ class LSTMModel:
         logger.info("="*60 + "\n")
     
     def train(self, X_train, y_train, X_val, y_val, 
-              epochs=100, batch_size=16, patience=15):
+            epochs=100, batch_size=16, patience=15):
         """
         Entrena el modelo
         
@@ -125,7 +125,7 @@ class LSTMModel:
             verbose=1
         )
         
-        logger.info("✓ Entrenamiento completado")
+        logger.info(" Entrenamiento completado")
     
     def predict(self, X):
         """
@@ -154,7 +154,7 @@ class LSTMModel:
         mae = results[1]
         mse = results[2]
         
-        logger.info(f"✓ Evaluación en conjunto de prueba:")
+        logger.info(f" Evaluación en conjunto de prueba:")
         logger.info(f"  Pérdida (MSE): {loss:.6f}")
         logger.info(f"  MAE: {mae:.6f}")
         
@@ -167,9 +167,9 @@ class LSTMModel:
     def save_model(self, filepath):
         """Guarda el modelo"""
         self.model.save(filepath)
-        logger.info(f"✓ Modelo guardado en: {filepath}")
+        logger.info(f" Modelo guardado en: {filepath}")
     
     def load_model(self, filepath):
         """Carga un modelo guardado"""
         self.model = tf.keras.models.load_model(filepath)
-        logger.info(f"✓ Modelo cargado desde: {filepath}")
+        logger.info(f" Modelo cargado desde: {filepath}")

@@ -17,10 +17,8 @@ class DataLoader:
     Features: X1-X8 (8 características)
     Targets: Y1 (Heating Load), Y2 (Cooling Load)
     """
-    
-    # ✅ CORREGIDO: Columnas en MAYÚSCULAS según el dataset real
     FEATURE_COLUMNS = ['X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8']
-    TARGET_COLUMNS = ['Y1', 'Y2']  # ← Cambio de minúsculas a mayúsculas
+    TARGET_COLUMNS = ['Y1', 'Y2']
     
     def __init__(self, filepath):
         """
@@ -46,7 +44,7 @@ class DataLoader:
             self.data = pd.read_csv(self.filepath)
             self.original_data = self.data.copy()
             
-            logger.info(f"✓ Datos cargados exitosamente")
+            logger.info(f" Datos cargados exitosamente")
             logger.info(f"  Dimensiones: {self.data.shape[0]} muestras × {self.data.shape[1]} columnas")
             logger.info(f"  Características: {', '.join(self.FEATURE_COLUMNS)}")
             logger.info(f"  Objetivos: {', '.join(self.TARGET_COLUMNS)}")
@@ -54,10 +52,10 @@ class DataLoader:
             
             return self.data
         except FileNotFoundError:
-            logger.error(f"❌ Archivo no encontrado: {self.filepath}")
+            logger.error(f" Archivo no encontrado: {self.filepath}")
             raise
         except Exception as e:
-            logger.error(f"❌ Error al cargar datos: {e}")
+            logger.error(f" Error al cargar datos: {e}")
             raise
     
     def get_data_info(self):
@@ -111,7 +109,7 @@ class DataLoader:
             normalized_data = scaler.fit_transform(data_to_normalize)
             self.scalers['general'] = scaler
         
-        logger.info(f"✓ Datos normalizados: rango [0, 1]")
+        logger.info(f" Datos normalizados: rango [0, 1]")
         logger.info(f"  Variables normalizadas: {variables}")
         
         return normalized_data
@@ -142,7 +140,7 @@ class DataLoader:
         X = np.array(X)
         y = np.array(y)
         
-        logger.info(f"✓ Secuencias creadas:")
+        logger.info(f" Secuencias creadas:")
         logger.info(f"  Total de muestras: {len(X)}")
         logger.info(f"  Forma de X: {X.shape} (muestras, pasos de tiempo, características)")
         logger.info(f"  Forma de y: {y.shape} (muestras, número de objetivos)")
@@ -166,7 +164,7 @@ class DataLoader:
         X_train, X_test = X[:split_idx], X[split_idx:]
         y_train, y_test = y[:split_idx], y[split_idx:]
         
-        logger.info(f"✓ División de datos:")
+        logger.info(f" División de datos:")
         logger.info(f"  Entrenamiento: {len(X_train)} muestras ({train_ratio*100:.0f}%)")
         logger.info(f"  Prueba: {len(X_test)} muestras ({(1-train_ratio)*100:.0f}%)")
         

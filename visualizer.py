@@ -59,7 +59,7 @@ class Visualizer:
         axes[0].plot(y_true, label='Real', alpha=0.7, linewidth=2, marker='o', markersize=3)
         axes[0].plot(y_pred, label='Predicción', alpha=0.7, linewidth=2, marker='s', markersize=3)
         axes[0].set_title(f'Pronóstico vs Real - {target_name} ({set_name})', 
-                         fontsize=12, fontweight='bold')
+                        fontsize=12, fontweight='bold')
         axes[0].set_xlabel('Muestras')
         axes[0].set_ylabel('Valor')
         axes[0].legend()
@@ -76,7 +76,7 @@ class Visualizer:
         axes[1].set_xlabel('Valores Reales')
         axes[1].set_ylabel('Predicciones')
         axes[1].set_title(f'Dispersión: Real vs Predicción - {target_name}', 
-                         fontsize=12, fontweight='bold')
+                        fontsize=12, fontweight='bold')
         axes[1].legend()
         axes[1].grid(True, alpha=0.3)
         axes[1].set_aspect('equal', adjustable='box')
@@ -85,7 +85,7 @@ class Visualizer:
         plt.savefig(f'predictions_{target_name}_{set_name}.png', dpi=150, bbox_inches='tight')
         plt.show()
         
-        logger.info(f"✓ Gráfico de predicciones guardado: predictions_{target_name}_{set_name}.png")
+        logger.info(f" Gráfico de predicciones guardado: predictions_{target_name}_{set_name}.png")
     
     @staticmethod
     def plot_error_distribution(y_true, y_pred, target_name="y1"):
@@ -105,7 +105,7 @@ class Visualizer:
         axes[0].hist(errors, bins=30, edgecolor='black', alpha=0.7, color='steelblue')
         axes[0].axvline(0, color='red', linestyle='--', linewidth=2, label='Error = 0')
         axes[0].axvline(np.mean(errors), color='green', linestyle='--', linewidth=2, 
-                       label=f'Media = {np.mean(errors):.4f}')
+                    label=f'Media = {np.mean(errors):.4f}')
         axes[0].set_xlabel('Error (Real - Predicción)')
         axes[0].set_ylabel('Frecuencia')
         axes[0].set_title(f'Distribución de Errores - {target_name}', fontsize=12, fontweight='bold')
@@ -122,7 +122,7 @@ class Visualizer:
         plt.savefig(f'error_distribution_{target_name}.png', dpi=150, bbox_inches='tight')
         plt.show()
         
-        logger.info(f"✓ Gráfico de errores guardado: error_distribution_{target_name}.png")
+        logger.info(f" Gráfico de errores guardado: error_distribution_{target_name}.png")
     
     @staticmethod
     def plot_dual_targets(y1_true, y1_pred, y2_true, y2_pred, set_name="Test"):
@@ -139,7 +139,7 @@ class Visualizer:
         # y1 - Línea
         axes[0, 0].plot(y1_true, label='Real', alpha=0.7, linewidth=2)
         axes[0, 0].plot(y1_pred, label='Predicción', alpha=0.7, linewidth=2)
-        axes[0, 0].set_title(f'🔥 y1 Heating Load - Línea ({set_name})', 
+        axes[0, 0].set_title(f' y1 Heating Load - Línea ({set_name})', 
                             fontsize=12, fontweight='bold')
         axes[0, 0].set_ylabel('Carga Térmica')
         axes[0, 0].legend()
@@ -152,13 +152,13 @@ class Visualizer:
         axes[0, 1].plot([min_val, max_val], [min_val, max_val], 'r--', linewidth=2)
         axes[0, 1].set_xlabel('Real')
         axes[0, 1].set_ylabel('Predicción')
-        axes[0, 1].set_title(f'🔥 y1 Heating Load - Dispersión', fontsize=12, fontweight='bold')
+        axes[0, 1].set_title(f' y1 Heating Load - Dispersión', fontsize=12, fontweight='bold')
         axes[0, 1].grid(True, alpha=0.3)
         
         # y2 - Línea
         axes[1, 0].plot(y2_true, label='Real', alpha=0.7, linewidth=2, color='cyan')
         axes[1, 0].plot(y2_pred, label='Predicción', alpha=0.7, linewidth=2, color='blue')
-        axes[1, 0].set_title(f'❄️ y2 Cooling Load - Línea ({set_name})', 
+        axes[1, 0].set_title(f' y2 Cooling Load - Línea ({set_name})', 
                             fontsize=12, fontweight='bold')
         axes[1, 0].set_xlabel('Muestras')
         axes[1, 0].set_ylabel('Carga de Enfriamiento')
@@ -172,11 +172,11 @@ class Visualizer:
         axes[1, 1].plot([min_val, max_val], [min_val, max_val], 'r--', linewidth=2)
         axes[1, 1].set_xlabel('Real')
         axes[1, 1].set_ylabel('Predicción')
-        axes[1, 1].set_title(f'❄️ y2 Cooling Load - Dispersión', fontsize=12, fontweight='bold')
+        axes[1, 1].set_title(f' y2 Cooling Load - Dispersión', fontsize=12, fontweight='bold')
         axes[1, 1].grid(True, alpha=0.3)
         
         plt.tight_layout()
         plt.savefig(f'dual_targets_{set_name}.png', dpi=150, bbox_inches='tight')
         plt.show()
         
-        logger.info(f"✓ Gráfico dual guardado: dual_targets_{set_name}.png")
+        logger.info(f" Gráfico dual guardado: dual_targets_{set_name}.png")
