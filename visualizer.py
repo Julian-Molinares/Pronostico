@@ -5,17 +5,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Visualizer:
-    """Crea visualizaciones para análisis de pronósticos"""
     
     @staticmethod
     def plot_training_history(history, target_name="Modelo"):
-        """
-        Visualiza el historial de entrenamiento
-        
-        Args:
-            history: Objeto history de Keras
-            target_name: Nombre del objetivo para el título
-        """
         fig, axes = plt.subplots(1, 2, figsize=(14, 5))
         
         # Pérdida
@@ -40,19 +32,10 @@ class Visualizer:
         plt.savefig(f'training_history_{target_name}.png', dpi=150, bbox_inches='tight')
         plt.show()
         
-        logger.info(f"✓ Gráfico de historial guardado: training_history_{target_name}.png")
+        logger.info(f"Gráfico de historial guardado: training_history_{target_name}.png")
     
     @staticmethod
     def plot_predictions_vs_actual(y_true, y_pred, set_name="Test", target_name="y1"):
-        """
-        Compara predicciones vs valores reales
-        
-        Args:
-            y_true: Valores reales
-            y_pred: Predicciones
-            set_name: Nombre del conjunto (Train/Test/Val)
-            target_name: Nombre de la variable objetivo
-        """
         fig, axes = plt.subplots(1, 2, figsize=(14, 5))
         
         # Gráfico de línea
@@ -89,14 +72,6 @@ class Visualizer:
     
     @staticmethod
     def plot_error_distribution(y_true, y_pred, target_name="y1"):
-        """
-        Visualiza la distribución de errores
-        
-        Args:
-            y_true: Valores reales
-            y_pred: Predicciones
-            target_name: Nombre de la variable objetivo
-        """
         errors = y_true.flatten() - y_pred.flatten()
         
         fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -122,18 +97,10 @@ class Visualizer:
         plt.savefig(f'error_distribution_{target_name}.png', dpi=150, bbox_inches='tight')
         plt.show()
         
-        logger.info(f" Gráfico de errores guardado: error_distribution_{target_name}.png")
+        logger.info(f"Gráfico de errores guardado: error_distribution_{target_name}.png")
     
     @staticmethod
     def plot_dual_targets(y1_true, y1_pred, y2_true, y2_pred, set_name="Test"):
-        """
-        Visualiza predicciones para ambos objetivos (y1 y y2)
-        
-        Args:
-            y1_true, y1_pred: Valores reales y predicciones para y1
-            y2_true, y2_pred: Valores reales y predicciones para y2
-            set_name: Nombre del conjunto
-        """
         fig, axes = plt.subplots(2, 2, figsize=(15, 10))
         
         # y1 - Línea
@@ -179,4 +146,4 @@ class Visualizer:
         plt.savefig(f'dual_targets_{set_name}.png', dpi=150, bbox_inches='tight')
         plt.show()
         
-        logger.info(f" Gráfico dual guardado: dual_targets_{set_name}.png")
+        logger.info(f"Gráfico dual guardado: dual_targets_{set_name}.png")

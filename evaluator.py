@@ -8,24 +8,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Evaluator:
-    """
-    Evalúa el rendimiento del modelo de pronóstico
-    Calcula múltiples métricas de error y correlación
-    """
-    
     @staticmethod
     def calculate_metrics(y_true, y_pred, metric_name="Predicción"):
-        """
-        Calcula múltiples métricas de rendimiento
-        
-        Args:
-            y_true (np.ndarray): Valores reales
-            y_pred (np.ndarray): Valores predichos
-            metric_name (str): Nombre para los logs
-        
-        Returns:
-            dict: Diccionario con todas las métricas
-        """
         # Asegurar que son arrays 1D
         y_true = y_true.flatten()
         y_pred = y_pred.flatten()
@@ -55,28 +39,14 @@ class Evaluator:
     
     @staticmethod
     def display_metrics(y_true, y_pred, set_name="Resultados", target_name=""):
-        """
-        Muestra métricas formateadas en consola
-        
-        Args:
-            y_true (np.ndarray): Valores reales
-            y_pred (np.ndarray): Valores predichos
-            set_name (str): Nombre del conjunto (Train/Test/Val)
-            target_name (str): Nombre de la variable objetivo
-        
-        Returns:
-            dict: Diccionario con las métricas
-        """
         metrics = Evaluator.calculate_metrics(y_true, y_pred, set_name)
         
         title = f"{'MÉTRICAS DE RENDIMIENTO':^60}"
         subtitle = f"{set_name} {target_name}".center(60)
         
-        print(f"\n{'='*60}")
         print(title)
         if target_name:
             print(subtitle)
-        print(f"{'='*60}")
         print(f"{'Métrica':<25} {'Valor':>20} {'Descripción':>15}")
         print(f"{'-'*60}")
         
@@ -93,26 +63,11 @@ class Evaluator:
             desc = descriptions.get(metric, '')
             print(f"{metric:<25} {value:>20.6f} {desc:>15}")
         
-        print(f"{'='*60}\n")
-        
         return metrics
     
     @staticmethod
     def compare_metrics(results_dict):
-        """
-        Compara métricas entre diferentes modelos o conjuntos
-        
-        Args:
-            results_dict (dict): Dict con formato {nombre: (y_true, y_pred)}
-        
-        Returns:
-            dict: Diccionario con comparación de métricas
-        """
         comparison = {}
-        
-        print(f"\n{'='*80}")
-        print(f"{'COMPARACIÓN DE RESULTADOS':^80}")
-        print(f"{'='*80}\n")
         
         for name, (y_true, y_pred) in results_dict.items():
             metrics = Evaluator.calculate_metrics(y_true, y_pred, name)
@@ -127,16 +82,6 @@ class Evaluator:
     
     @staticmethod
     def get_error_statistics(y_true, y_pred):
-        """
-        Retorna estadísticas detalladas de los errores
-        
-        Args:
-            y_true (np.ndarray): Valores reales
-            y_pred (np.ndarray): Valores predichos
-        
-        Returns:
-            dict: Estadísticas de error
-        """
         errors = y_true.flatten() - y_pred.flatten()
         
         stats = {

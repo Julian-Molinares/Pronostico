@@ -7,26 +7,13 @@ from evaluator import Evaluator
 logger = logging.getLogger(__name__)
 
 class MultiTargetForecaster:
-    """
-    Forecaster especializado para predicción de múltiples objetivos
-    Diseñado para Energy Efficiency Dataset (Y1: Heating Load, Y2: Cooling Load)
-    """
-    
     def __init__(self, filepath, sequence_length=10, predict_both=True):
-        """
-        Inicializa el forecaster multitarget
-        
-        Args:
-            filepath (str): Ruta del archivo CSV
-            sequence_length (int): Longitud de la secuencia temporal
-            predict_both (bool): Si True, predice Y1 y Y2; si False, solo Y1
-        """
         self.filepath = filepath
         self.sequence_length = sequence_length
         self.predict_both = predict_both
         
         self.data_loader = DataLoader(filepath)
-        self.models = {}  # Diccionario para modelos (Y1, Y2)
+        self.models = {}
         self.training_data = {}
         self.test_data = {}
         
@@ -36,11 +23,6 @@ class MultiTargetForecaster:
         logger.info(f"  Predicción multitarget: {predict_both}")
     
     def prepare_data(self):
-        """Prepara y normaliza los datos"""
-        logger.info("\n" + "="*70)
-        logger.info("FASE 1: PREPARACIÓN DE DATOS")
-        logger.info("="*70)
-        
         # Cargar datos
         self.data_loader.load_data()
         
@@ -87,16 +69,11 @@ class MultiTargetForecaster:
             'y': y_test
         }
         
-        logger.info(" Preparación de datos completada")
+        logger.info("Preparación de datos completada")
         
         return X_train, X_test, y_train, y_test, output_dim
     
     def build_and_train_model(self, lstm_units=64, epochs=100, batch_size=16):
-        """Construye y entrena el modelo"""
-        logger.info("\n" + "="*70)
-        logger.info("FASE 2: CONSTRUCCIÓN Y ENTRENAMIENTO DEL MODELO")
-        logger.info("="*70)
-        
         X_train = self.training_data['X']
         y_train = self.training_data['y']
         X_test = self.test_data['X']
@@ -123,14 +100,9 @@ class MultiTargetForecaster:
             patience=15
         )
         
-        logger.info(" Modelo entrenado exitosamente")
+        logger.info("Modelo entrenado exitosamente")
     
     def evaluate_model(self):
-        """Evalúa el modelo en datos de prueba"""
-        logger.info("\n" + "="*70)
-        logger.info("FASE 3: EVALUACIÓN DEL MODELO")
-        logger.info("="*70)
-        
         X_train = self.training_data['X']
         y_train = self.training_data['y']
         X_test = self.test_data['X']
@@ -184,7 +156,6 @@ class MultiTargetForecaster:
             }, y_train_pred, y_test_pred
     
     def run_complete_pipeline(self, lstm_units=64, epochs=100, batch_size=16):
-        """Ejecuta el pipeline completo"""
         print("\nPRONÓSTICO LSTM - ENERGY EFFICIENCY DATASET")
         print(f"\nDataset: Energy Efficiency (768 muestras, 8 características)")
         print(f"Variables objetivo: Y1 (Heating Load), Y2 (Cooling Load)")
@@ -198,9 +169,5 @@ class MultiTargetForecaster:
         
         # Fase 3: Evaluación
         metrics, y_train_pred, y_test_pred = self.evaluate_model()
-        
-        logger.info("\n" + "="*70)
-        logger.info(" PIPELINE COMPLETADO EXITOSAMENTE")
-        logger.info("="*70)
         
         return metrics, y_train_pred, y_test_pred

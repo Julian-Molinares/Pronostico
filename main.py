@@ -14,16 +14,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def main():
-    """
-    Script principal para pronóstico de energía con LSTM
-    Dataset: Energy Efficiency (768 muestras)
-    Variables objetivo: Y1 (Heating Load), Y2 (Cooling Load)
-    """
-    
-    # ========== CONFIGURACIÓN ==========
-    FILEPATH = 'energy_efficiency_data.csv'  # Asegúrate de tener el archivo
-    SEQUENCE_LENGTH = 10  # Pasos de tiempo para secuencias
-    PREDICT_BOTH = True  # Predicción dual (Y1 y Y2)
+    FILEPATH = 'energy_efficiency_data.csv'
+    SEQUENCE_LENGTH = 10
+    PREDICT_BOTH = True
     
     # Hyperparámetros del modelo
     LSTM_UNITS = 64
@@ -31,25 +24,20 @@ def main():
     BATCH_SIZE = 16
     
     try:
-        # ========== CREAR FORECASTER ==========
-        logger.info("="*80)
-        logger.info("INICIANDO SISTEMA DE PRONÓSTICO LSTM - ENERGY EFFICIENCY")
-        logger.info("="*80)
-        
         forecaster = MultiTargetForecaster(
             filepath=FILEPATH,
             sequence_length=SEQUENCE_LENGTH,
             predict_both=PREDICT_BOTH
         )
         
-        # ========== EJECUTAR PIPELINE ==========
+        # Ejecutar pipeline
         metrics, y_train_pred, y_test_pred = forecaster.run_complete_pipeline(
             lstm_units=LSTM_UNITS,
             epochs=EPOCHS,
             batch_size=BATCH_SIZE
         )
         
-        # ========== VISUALIZACIONES ==========
+        # Visualizaciones
         logger.info("\nGenerando visualizaciones...")
         
         # Historial de entrenamiento
@@ -106,9 +94,7 @@ def main():
                 target_name="Y1 - Heating Load"
             )
         
-        logger.info("\n" + "="*80)
         logger.info(" PROCESO COMPLETADO EXITOSAMENTE")
-        logger.info("="*80)
         logger.info("\nArchivos generados:")
         logger.info("  - energy_forecasting.log")
         logger.info("  - training_history_*.png")
