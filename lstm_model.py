@@ -120,5 +120,14 @@ class LSTMModel:
         logger.info(f" Modelo guardado en: {filepath}")
     
     def load_model(self, filepath):
-        self.model = tf.keras.models.load_model(filepath)
-        logger.info(f" Modelo cargado desde: {filepath}")
+        #Carga el modelo indicando compile=False para evitar el error de Keras
+        self.model = tf.keras.models.load_model(filepath, compile=False)
+        
+        #Recompila el modelo exactamente con los mismos parámetros originales
+        optimizer = Adam(learning_rate=self.learning_rate)
+        self.model.compile(
+            optimizer=optimizer,
+            loss='mse',
+            metrics=['mae', 'mse']
+        )
+        logger.info(f" Modelo cargado y recompilado desde: {filepath}")

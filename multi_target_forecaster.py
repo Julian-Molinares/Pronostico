@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import logging
 from data_loader import DataLoader
@@ -73,7 +74,7 @@ class MultiTargetForecaster:
         
         return X_train, X_test, y_train, y_test, output_dim
     
-    def build_and_train_model(self, lstm_units=64, epochs=100, batch_size=16):
+    def build_and_train_model(self, lstm_units=64, epochs=100, batch_size=16, model_path='best_model.h5'):
         X_train = self.training_data['X']
         y_train = self.training_data['y']
         X_test = self.test_data['X']
@@ -81,7 +82,7 @@ class MultiTargetForecaster:
         
         output_dim = y_train.shape[1] if len(y_train.shape) > 1 else 1
         
-        # Crear modelo
+        # Crear la estructura/instancia del modelo
         input_shape = (X_train.shape[1], X_train.shape[2])
         self.model = LSTMModel(
             input_shape=input_shape,
@@ -91,16 +92,21 @@ class MultiTargetForecaster:
             learning_rate=0.001
         )
         
-        # Entrenar
-        self.model.train(
-            X_train, y_train,
-            X_test, y_test,
-            epochs=epochs,
-            batch_size=batch_size,
-            patience=15
-        )
-        
-        logger.info("Modelo entrenado exitosamente")
+        # Comprobar si ya existe un modelo guardado
+        if os.path.exists(model_path):
+            logger.info(f"\nSe encontró el archivo '{model_path}'. Cargando modelo preentrenado...")
+            self.model.load_model(model_path)
+        else:
+            logger.info(f"\nNo se encontró modelo previo. Iniciando entrenamiento nuevo...")
+            # Entrenar
+            self.model.train(
+                X_train, y_train,
+                X_test, y_test,
+                epochs=epochs,
+                batch_size=batch_size,
+                patience=15
+            )
+            logger.info("Modelo entrenado exitosamente")
     
     def evaluate_model(self):
         X_train = self.training_data['X']
