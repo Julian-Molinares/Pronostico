@@ -21,3 +21,15 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+
+# Archivos de imagen
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# Modelos guardados
+*.h5
+
+# Logs
+*.log
