@@ -1,11 +1,16 @@
+import os
 import logging
+import warnings
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+logging.getLogger('absl').setLevel(logging.ERROR)
+warnings.filterwarnings('ignore', category=UserWarning)
 from multi_target_forecaster import MultiTargetForecaster
 from visualizer import Visualizer
 
-# Configurar logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    format='%(message)s',
     handlers=[
         logging.FileHandler('energy_forecasting.log'),
         logging.StreamHandler()

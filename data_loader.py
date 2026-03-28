@@ -5,7 +5,7 @@ import logging
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(message)s'
 )
 logger = logging.getLogger(__name__)
 
@@ -79,7 +79,7 @@ class DataLoader:
             normalized_data = scaler.fit_transform(data_to_normalize)
             self.scalers['general'] = scaler
         
-        logger.info(f"Datos normalizados: rango [0, 1]")
+        logger.info(f"\nDatos normalizados: rango [0, 1]")
         logger.info(f"Variables normalizadas: {variables}")
         
         return normalized_data
@@ -98,7 +98,7 @@ class DataLoader:
         X = np.array(X)
         y = np.array(y)
         
-        logger.info(f"Secuencias creadas:")
+        logger.info(f"\nSecuencias creadas:")
         logger.info(f"Total de muestras: {len(X)}")
         logger.info(f"Forma de X: {X.shape} (muestras, pasos de tiempo, características)")
         logger.info(f"Forma de y: {y.shape} (muestras, número de objetivos)")
@@ -111,7 +111,7 @@ class DataLoader:
         X_train, X_test = X[:split_idx], X[split_idx:]
         y_train, y_test = y[:split_idx], y[split_idx:]
         
-        logger.info(f"División de datos:")
+        logger.info(f"\nDivisión de datos:")
         logger.info(f"Entrenamiento: {len(X_train)} muestras ({train_ratio*100:.0f}%)")
         logger.info(f"Prueba: {len(X_test)} muestras ({(1-train_ratio)*100:.0f}%)")
         

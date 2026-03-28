@@ -18,7 +18,7 @@ class LSTMModel:
         self.model = None
         self.history = None
         
-        logger.info(f"Inicializando LSTMModel:")
+        logger.info(f"\nInicializando LSTMModel:")
         logger.info(f"Input shape: {input_shape}")
         logger.info(f"Output dim: {output_dim}")
         logger.info(f"LSTM units: {lstm_units}")
@@ -28,8 +28,9 @@ class LSTMModel:
     
     def _build_model(self):
         self.model = Sequential([
+            Input(shape=self.input_shape),
             LSTM(self.lstm_units, activation='relu', 
-                input_shape=self.input_shape, return_sequences=True,
+                return_sequences=True,
                 name='lstm_1'),
             Dropout(self.dropout_rate),
             
@@ -80,7 +81,7 @@ class LSTMModel:
             )
         ]
         
-        logger.info(f"Iniciando entrenamiento...")
+        logger.info(f"\nIniciando entrenamiento...")
         logger.info(f"Épocas: {epochs}")
         logger.info(f"Batch size: {batch_size}")
         logger.info(f"Paciencia EarlyStopping: {patience}")

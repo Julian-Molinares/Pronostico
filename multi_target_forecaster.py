@@ -38,12 +38,12 @@ class MultiTargetForecaster:
             # Predecir Y1 (índice 8) e Y2 (índice 9)
             target_indices = [8, 9]
             output_dim = 2
-            logger.info("Objetivo: Predicción dual (Y1 - Heating Load, Y2 - Cooling Load)")
+            logger.info("\nObjetivo: Predicción dual (Y1 - Heating Load, Y2 - Cooling Load)")
         else:
             # Solo predecir Y1 (índice 8)
             target_indices = 8
             output_dim = 1
-            logger.info("Objetivo: Predicción simple (Y1 - Heating Load)")
+            logger.info("\nObjetivo: Predicción simple (Y1 - Heating Load)")
         
         # Crear secuencias
         X, y = self.data_loader.create_sequences(
